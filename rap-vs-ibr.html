@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAP vs IBR Calculator (2026) — StudentLoanTools</title>
+<meta name="description" content="Compare RAP and IBR monthly payments for 2026 federal student loans.">
+<link rel="canonical" href="/rap-vs-ibr.html">
+<style>
+:root{--ink:#332b43;--muted:#7a7087;--grape:#7c5cff;--line:#f0e6f5;--mint:#2ecf9e}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff4fb,#fff9f1);color:var(--ink);font:400 16px/1.6 Nunito,system-ui,sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:0 18px}
+header{background:#fff;border-bottom:1px solid var(--line)}
+header .wrap,footer .wrap{display:flex;justify-content:space-between;align-items:center;min-height:58px;gap:10px;flex-wrap:wrap}
+.brand{font-weight:800;text-decoration:none;color:var(--ink)}nav a{margin-left:12px;color:var(--muted);text-decoration:none;font-weight:700}
+h1{font-size:clamp(28px,5vw,42px);line-height:1.15}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin:18px 0;box-shadow:0 10px 24px rgba(124,92,255,.1)}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px}label{font-weight:700;font-size:14px;display:block;margin-bottom:6px}
+input,select{width:100%;padding:11px;border:2px solid #ede4f7;border-radius:12px;font:600 16px/1.3 inherit;background:#fbf8ff}
+button{grid-column:1/-1;border:0;border-radius:999px;padding:14px;font-weight:800;color:#fff;background:linear-gradient(120deg,#7c5cff,#ff6fae);cursor:pointer}
+.results{display:grid;grid-template-columns:1fr 1fr;gap:14px}.plan{border:2px solid var(--line);border-radius:16px;padding:16px}
+.plan.win{border-color:var(--mint);background:#f1fff8}.amt{font-size:34px;font-weight:800}
+.muted{color:var(--muted)}@media(max-width:700px){form,.results{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line);padding:18px 0 28px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="index.html">StudentLoanTools</a><nav><a href="index.html">Home</a><a href="rap-vs-ibr.html">RAP vs IBR</a></nav></div></header>
+<div class="wrap">
+  <h1>RAP vs IBR calculator</h1>
+  <p class="muted">Compare 2026 monthly payments. Math runs in your browser — nothing is uploaded.</p>
+  <form class="card" id="calcForm">
+    <div><label>Loan balance</label><input id="balance" type="number" min="1" step="100" value="50000" required></div>
+    <div><label>Interest rate %</label><input id="rate" type="number" min="0" max="15" step="0.01" value="6.5" required></div>
+    <div><label>Annual AGI</label><input id="agi" type="number" min="0" step="500" value="60000" required></div>
+    <div><label>Dependents (RAP -$50 each)</label><input id="dependents" type="number" min="0" max="10" value="0"></div>
+    <div><label>Family size (IBR)</label><select id="familySize"><option>1</option><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+    <div><label>State</label><select id="stateGroup"><option value="48">48 states + DC</option><option value="AK">Alaska</option><option value="HI">Hawaii</option></select></div>
+    <div><label>Loans first disbursed</label><select id="disbursed"><option value="after2014">On/after July 1, 2014</option><option value="before2014">Before July 1, 2014</option></select></div>
+    <div><label>Filing status</label><select id="filing"><option>single</option><option value="mfj">married filing jointly</option><option value="mfs">married filing separately</option></select></div>
+    <button type="submit">Compare my plans</button>
+  </form>
+  <div class="results" id="results" hidden>
+    <div class="plan" id="rapCard"></div>
+    <div class="plan" id="ibrCard"></div>
+  </div>
+  <div class="card" id="verdict" hidden></div>
+  <p class="muted">Estimate only — not official ED figures or financial advice. Servicers round to the nearest $5.</p>
+</div>
+<footer><div class="wrap"><b>StudentLoanTools</b><span><a href="about.html">About</a> · <a href="contact.html">Contact</a></span></div></footer>
+<script src="assets/js/calc-core.js"></script>
+<script>
+(function(){
+  var C = window.LoanCalc;
+  function $(id){return document.getElementById(id)}
+  function fmt(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2})}
+  $('calcForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var inp = {
+      balance:+$('balance').value, rate:+$('rate').value, agi:+$('agi').value,
+      dependents:parseInt($('dependents').value,10)||0,
+      familySize:parseInt($('familySize').value,10),
+      stateGroup:$('stateGroup').value,
+      oldBorrower:$('disbursed').value==='before2014'
+    };
+    var std = C.standardPayment(inp.balance, inp.rate, 120);
+    var rap = C.rapMonthlyPayment(inp.agi, inp.dependents);
+    var rapSim = C.simulate({plan:'RAP', balance:inp.balance, rate:inp.rate, agi:inp.agi, monthly:rap});
+    var ibr = C.ibrPayment(inp);
+    var rapWins = !ibr.eligible || rap < ibr.monthly;
+    $('results').hidden = false;
+    $('rapCard').className = 'plan'+(rapWins?' win':'');
+    $('rapCard').innerHTML = '<h3>RAP</h3><div class="amt">'+fmt(rap)+'</div><div class="muted">/month · 30-year forgiveness</div><p>After term: '+(rapSim.forgiven>0?fmt(rapSim.forgiven)+' forgiven':'paid off')+'</p>';
+    if (ibr.eligible) {
+      var ibrSim = C.simulate({plan:'IBR', balance:inp.balance, rate:inp.rate, monthly:ibr.monthly, oldBorrower:inp.oldBorrower});
+      $('ibrCard').className = 'plan'+(!rapWins?' win':'');
+      $('ibrCard').innerHTML = '<h3>IBR</h3><div class="amt">'+fmt(ibr.monthly)+'</div><div class="muted">/month · '+(inp.oldBorrower?25:20)+'-year forgiveness</div><p>After term: '+(ibrSim.forgiven>0?fmt(ibrSim.forgiven)+' forgiven':'paid off')+(ibrSim.negativeAmortization?' · balance may grow':'')+'</p>';
+    } else {
+      $('ibrCard').className = 'plan';
+      $('ibrCard').innerHTML = '<h3>IBR</h3><p>Not available (no partial financial hardship). Standard plan is <b>'+fmt(std)+'</b>/mo.</p>';
+    }
+    var v = $('verdict'); v.hidden=false;
+    v.innerHTML = ibr.eligible
+      ? ('<b>'+(rapWins?'RAP':'IBR')+' is cheaper this month</b> by '+fmt(Math.abs(rap-ibr.monthly))+'. RAP forgives at 30 years; IBR at '+(inp.oldBorrower?25:20)+'. Total cost can differ.')
+      : ('IBR is unavailable for these inputs. Compare RAP with the standard payment of '+fmt(std)+'.');
+  });
+})();
+</script>
+</body>
+</html>
