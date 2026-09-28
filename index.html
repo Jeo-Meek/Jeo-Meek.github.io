@@ -16,16 +16,31 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<style>
+:root{--cream:#fff9f1;--ink:#332b43;--muted:#7a7087;--line:#f0e6f5;--grape:#7c5cff;--font-display:Fredoka,Nunito,sans-serif;--font-body:Nunito,system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff4fb 0%,#fff9f1 50%,#fdf1ff 100%);color:var(--ink);font:400 17px/1.65 var(--font-body)}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}.decor{display:none}
+header.site{background:rgba(255,255,255,.85);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;min-height:62px;gap:10px;flex-wrap:wrap}
+.brand{font:700 21px/1 var(--font-display);color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.brand .logo{width:34px;height:34px;border-radius:11px;background:linear-gradient(120deg,#7c5cff,#ff6fae);display:inline-grid;place-items:center}
+.brand b{color:var(--grape)}nav a{color:var(--muted);text-decoration:none;font-weight:700;padding:8px 14px;border-radius:999px}
+.hero{text-align:center;padding:48px 0 12px}.hero h1{font:700 clamp(30px,5vw,48px)/1.15 var(--font-display);margin:0 auto 14px;max-width:16ch}
+.hero h1 .grad{color:var(--grape)}.hero .lede{color:var(--muted);max-width:640px;margin:0 auto 24px}
+.eyebrow{display:inline-block;font:700 13px/1 var(--font-display);letter-spacing:.12em;text-transform:uppercase;color:var(--grape);background:#efe9ff;padding:8px 16px;border-radius:999px;margin-bottom:16px}
+.notice{max-width:720px;margin:8px auto 28px;background:#fff7e6;border:1.5px dashed #ffc94d;border-radius:18px;padding:14px 18px;display:flex;gap:12px;color:#6b4d12}
+.notice small{display:block;color:#9a7b3a;margin-top:2px}
+.toolgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin:22px 0}
+.toolcard,.content-card{background:#fff;border:1.5px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 10px 28px rgba(124,92,255,.12)}
+.t-bubble{width:52px;height:52px;border-radius:16px;background:linear-gradient(120deg,#7c5cff,#ff6fae);display:grid;place-items:center;font-size:26px;margin-bottom:12px}
+.toolcard h3,section.block h2{font-family:var(--font-display);margin:0 0 6px}.toolcard p,.sec-lede,.source{color:var(--muted)}
+.toolcard .go{display:inline-block;margin-top:12px;font-weight:700;color:var(--grape);text-decoration:none}
+section.block{margin:36px 0}footer.site{border-top:1px solid var(--line);padding:24px 0 38px;margin-top:20px}
+footer.site .wrap{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap;font-size:13.5px;color:var(--muted)}
+.soon{display:inline-block;font-size:11px;background:#f2eefb;padding:4px 8px;border-radius:999px}
+</style>
 </head>
 <body>
-<div class="decor" aria-hidden="true">
-  <span class="d1">🎓</span>
-  <span class="d2">💰</span>
-  <span class="d3">📊</span>
-  <span class="d4">✨</span>
-  <span class="d5">💸</span>
-</div>
-
 <header class="site">
   <div class="wrap">
     <a class="brand" href="index.html"><span class="logo">🎓</span> StudentLoan<b>Tools</b></a>
@@ -36,92 +51,77 @@
     </nav>
   </div>
 </header>
-
 <div class="hero">
   <div class="wrap">
-    <div class="eyebrow">💜 Free · No sign-up · No data sent anywhere</div>
+    <div class="eyebrow">Free · No sign-up · No data sent anywhere</div>
     <h1>Student loan calculators that <span class="grad">actually explain</span> the 2026 mess</h1>
-    <p class="lede">SAVE is gone, RAP is new, and 7.5 million borrowers have to pick a plan. Our tools show your monthly payment under each option — transparent formulas, cute visuals, zero stress. 🎀</p>
+    <p class="lede">SAVE is gone, RAP is new, and 7.5 million borrowers have to pick a plan. Our tools show your monthly payment under each option — transparent formulas, zero stress.</p>
   </div>
 </div>
-
 <div class="wrap">
   <div class="notice">
-    <span class="n-ico">📢</span>
+    <span>📢</span>
     <div>
       <b>Big change:</b> the SAVE plan was struck down in March 2026, and its borrowers are being moved to IBR or the new RAP plan.
       <small>You have 90 days after your servicer's notice to choose — otherwise you're auto-enrolled in RAP.</small>
     </div>
   </div>
-
   <div class="toolgrid">
     <div class="toolcard">
       <div class="t-bubble">🧮</div>
       <h3>RAP vs IBR Calculator</h3>
       <p>See your monthly payment under both plans side by side, with forgiveness timelines and a clear winner.</p>
-      <a class="go" href="rap-vs-ibr.html">Try it now <span>→</span></a>
+      <a class="go" href="rap-vs-ibr.html">Try it now →</a>
     </div>
     <div class="toolcard">
-      <div class="t-bubble b2">📅</div>
+      <div class="t-bubble">📅</div>
       <h3>SAVE Transition Guide</h3>
       <p>Deadlines, the 90-day notice rule, what happens if you do nothing, and how the July 1, 2028 cutoff works.</p>
-      <a class="go" href="save-plan-ended.html">Read the guide <span>→</span></a>
+      <a class="go" href="save-plan-ended.html">Read the guide →</a>
     </div>
     <div class="toolcard">
       <div class="t-bubble">📖</div>
       <h3>The SAVE plan ended — now what?</h3>
-      <p>Everything 7.5 million SAVE borrowers need to know: what happened, your two options (RAP vs IBR), and what to do this week.</p>
-      <a class="go" href="save-plan-ended.html">Get the short version <span>→</span></a>
+      <p>Everything 7.5 million SAVE borrowers need to know: your two options (RAP vs IBR), and what to do this week.</p>
+      <a class="go" href="save-plan-ended.html">Get the short version →</a>
     </div>
   </div>
-
   <section class="block" id="guides">
-    <h2>📚 Guides & explainers</h2>
+    <h2>Guides & explainers</h2>
     <p class="sec-lede">The 2026 student loan changes, explained in plain English — with real numbers and cited sources.</p>
     <div class="toolgrid">
       <div class="toolcard">
         <div class="t-bubble">🛡️</div>
         <h3>What is RAP?</h3>
         <p>The new Repayment Assistance Plan explained: payments, eligibility, interest waiver, and 30-year forgiveness.</p>
-        <a class="go" href="what-is-rap.html">Read the guide <span>→</span></a>
+        <a class="go" href="what-is-rap.html">Read the guide →</a>
       </div>
       <div class="toolcard">
-        <div class="t-bubble b2">📊</div>
+        <div class="t-bubble">📊</div>
         <h3>RAP payments by income</h3>
         <p>Real monthly payments across incomes and family sizes — computed live from the statutory formula.</p>
-        <a class="go" href="rap-payment-examples.html">See the numbers <span>→</span></a>
+        <a class="go" href="rap-payment-examples.html">See the numbers →</a>
       </div>
       <div class="toolcard">
         <div class="t-bubble">🧭</div>
         <h3>Which plan should I choose?</h3>
         <p>A three-question decision tree: RAP vs IBR vs Standard for your income, family size, and loan age.</p>
-        <a class="go" href="which-repayment-plan.html">Pick your plan <span>→</span></a>
+        <a class="go" href="which-repayment-plan.html">Pick your plan →</a>
       </div>
     </div>
   </section>
-
   <section class="block">
-    <h2>🧰 More calculators coming soon</h2>
-    <ul class="tight">
-      <li>Student loan forgiveness countdown — when does my balance get forgiven? <span class="soon">In progress</span></li>
-      <li>PSLF qualifying payment tracker <span class="soon">In progress</span></li>
-      <li>Standard vs IDR comparison <span class="soon">In progress</span></li>
-    </ul>
-  </section>
-
-  <section class="block">
-    <h2>📣 Why the rules changed</h2>
+    <h2>Why the rules changed</h2>
     <div class="content-card">
-      <p>In March 2026 the Eighth Circuit Court of Appeals struck down the SAVE plan, and the One Big Beautiful Bill Act of July 2025 already ordered SAVE, PAYE, and ICR to be phased out by July 1, 2028. Going forward, income-driven borrowers have exactly two choices: <b>Income-Based Repayment (IBR)</b>, the old plan based on discretionary income, or the new <b>Repayment Assistance Plan (RAP)</b>, based on a tiered percentage of total income.</p>
-      <p>Picking wrong can cost thousands per year or add a decade to your forgiveness timeline — so it pays to run the numbers first. 💡</p>
+      <p>In March 2026 the Eighth Circuit struck down SAVE, and the One Big Beautiful Bill Act phases out SAVE, PAYE, and ICR by July 1, 2028. Income-driven borrowers choose <b>IBR</b> or the new <b>RAP</b>.</p>
+      <p>Picking wrong can cost thousands per year — run the numbers first.</p>
     </div>
-    <p class="source">Independent and unaffiliated. Estimates for information only — not legal, tax, or financial advice.</p>
+    <p class="source">Independent and unaffiliated. Estimates for information only — not legal, tax, or financial advice. Preview hosted at jeo-meek.github.io.</p>
   </section>
 </div>
-
 <footer class="site">
   <div class="wrap">
-    <b>🎓 StudentLoanTools</b>
+    <b>StudentLoanTools</b>
     <span>
       <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms.html">Terms</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a>
     </span>
