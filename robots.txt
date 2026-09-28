@@ -1,0 +1,6 @@
+# StudentLoanTools robots.txt
+# Allow all crawlers; nothing here is private.
+User-agent: *
+Allow: /
+
+Sitemap: https://jeo-meek.github.io/sitemap.xml

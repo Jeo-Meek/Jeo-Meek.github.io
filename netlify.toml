@@ -1,0 +1,21 @@
+# Netlify / Cloudflare Pages deployment config — zero-build static site.
+# Enables clean URLs (no .html) and cache headers. HTTPS is automatic on both hosts.
+
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/rap-vs-ibr-calculator"
+  to = "/rap-vs-ibr.html"
+  status = 301
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
